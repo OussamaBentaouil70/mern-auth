@@ -25,7 +25,19 @@ function CreateMemberModal({ open, handleClose }) {
       [name]: value,
     }));
   };
-
+  const fetchData = async () => {
+    try {
+   const response = await Axios.get("/owner/members", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`, // Assuming the token is stored in localStorage
+        },
+      });
+      setMembers(response.data);
+    } catch (error) {
+      console.error("Error fetching data: ", error);
+      // Handle errors here, e.g. by showing an error message
+    }
+  };
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
@@ -38,6 +50,7 @@ function CreateMemberModal({ open, handleClose }) {
       toast.success("Member added successfully!");
       handleClose(); // Close modal on successful submission
       window.location.href = "/dashboard"; // Refresh the page to see the new member
+     
     } catch (error) {
       console.error("Error creating member:", error);
     }

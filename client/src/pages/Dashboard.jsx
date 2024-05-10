@@ -27,22 +27,21 @@ export default function Dashboard() {
     setSelectedMember(member);
     setOpenEditModal(true);
   };
+   const fetchData = async () => {
+    try {
+   const response = await Axios.get("/owner/members", {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`, // Assuming the token is stored in localStorage
+        },
+      });
+      setMembers(response.data);
+    } catch (error) {
+      console.error("Error fetching data: ", error);
+      // Handle errors here, e.g. by showing an error message
+    }
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await Axios.get("/owner/members", {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`, // Assuming the token is stored in localStorage
-          },
-        });
-        setMembers(response.data);
-      } catch (error) {
-        console.error("Error fetching data: ", error);
-        // Handle errors here, e.g. by showing an error message
-      }
-    };
-
     fetchData();
   }, []);
   const handleDelete = (member) => {
@@ -79,9 +78,10 @@ export default function Dashboard() {
             <TableHead>
               <TableRow>
                 <TableCell>Username</TableCell>
-                <TableCell align="right">Email</TableCell>
-                <TableCell align="right">Role</TableCell>
-                <TableCell align="right">Function</TableCell>
+                <TableCell align="left">Email</TableCell>
+                <TableCell align="left">Role</TableCell>
+                <TableCell align="left">Function</TableCell>
+                <TableCell align="left">Action</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -90,10 +90,10 @@ export default function Dashboard() {
                   <TableCell component="th" scope="row">
                     {member.username}
                   </TableCell>
-                  <TableCell align="right">{member.email}</TableCell>
-                  <TableCell align="right">{member.role}</TableCell>
-                  <TableCell align="right">{member.fonction}</TableCell>
-                  <TableCell align="right">
+                  <TableCell align="left">{member.email}</TableCell>
+                  <TableCell align="left">{member.role}</TableCell>
+                  <TableCell align="left">{member.fonction}</TableCell>
+                  <TableCell align="left">
                     <IconButton onClick={() => handleEdit(member)}>
                       <EditIcon />
                     </IconButton>
@@ -120,3 +120,5 @@ export default function Dashboard() {
     </div>
   );
 }
+
+

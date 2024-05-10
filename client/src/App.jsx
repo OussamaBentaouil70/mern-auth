@@ -14,13 +14,14 @@ import PrivateRoute from "./components/PrivateRoute";
 import TestNav from "./pages/TestNav";
 import Rules from "./pages/Rules";
 import PrivateRoute2 from "./components/PrivateRoute2";
+import Profile from "./pages/Profile";
 
 axios.defaults.baseURL = "http://localhost:8000";
 axios.defaults.withCredentials = true;
 
 function App() {
   const { user } = useContext(UserContext);
-  console.log(user);
+  
   return (
     <UserContextProvider>
       <Navbar />
@@ -40,7 +41,17 @@ function App() {
           element={
             <PrivateRoute>
               <Dashboard />
+              
             </PrivateRoute>
+          }
+        />
+        <Route
+          path="/profile"
+          element={
+            
+              <Profile />
+              
+          
           }
         />
         <Route

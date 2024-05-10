@@ -17,7 +17,7 @@ import MenuItem from "@mui/material/MenuItem";
 import logo from "../assets/logo.png";
 
 const settings = [
-  { name: "Profile", type: "link", path: "/Profile" },
+  { name: "Profile", type: "link", path: "/profile" },
   { name: "Dashboard", type: "link", path: "/dashboard" },
   { name: "Rules", type: "link", path: "/rules" },
   { name: "Logout", type: "button" },
@@ -40,6 +40,11 @@ export default function Navbar() {
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
+
+  const getRandomColor = () => {
+    const colors = ["#2196F3", "#4CAF50", "#FFC107", "#9C27B0", "#FF5722"];
+    return colors[Math.floor(Math.random() * colors.length)];
   };
 
   const { user, logout } = React.useContext(UserContext);
@@ -80,10 +85,19 @@ export default function Navbar() {
               <Box sx={{ flexGrow: 0 }}>
                 <Tooltip title="Open settings">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar
+                    {/* <Avatar
                       alt="Remy Sharp"
                       src="https://static.vecteezy.com/system/resources/previews/000/439/863/original/vector-users-icon.jpg"
-                    />
+                    /> */}
+                     <Avatar
+              sx={{
+                bgcolor: getRandomColor(),
+                fontSize: 25,
+                margin: "auto",
+              }}
+            >
+              {user && user.username.charAt(0).toUpperCase()}
+            </Avatar>
                   </IconButton>
                 </Tooltip>
                 <Menu
