@@ -89,15 +89,15 @@ export default function Navbar() {
                       alt="Remy Sharp"
                       src="https://static.vecteezy.com/system/resources/previews/000/439/863/original/vector-users-icon.jpg"
                     /> */}
-                     <Avatar
-              sx={{
-                bgcolor: getRandomColor(),
-                fontSize: 25,
-                margin: "auto",
-              }}
-            >
-              {user && user.username.charAt(0).toUpperCase()}
-            </Avatar>
+                    <Avatar
+                      sx={{
+                        bgcolor: getRandomColor(),
+                        fontSize: 25,
+                        margin: "auto",
+                      }}
+                    >
+                      {user && user.username.charAt(0).toUpperCase()}
+                    </Avatar>
                   </IconButton>
                 </Tooltip>
                 <Menu

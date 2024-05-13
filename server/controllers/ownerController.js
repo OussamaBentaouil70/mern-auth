@@ -16,6 +16,16 @@ const createMemberByOwner = async (req, res) => {
   }
 
   try {
+    // Check if username or email already exist
+    const existingMember = await Member.findOne({
+      $or: [{ username }, { email }],
+    });
+    if (existingMember) {
+      return res
+        .status(400)
+        .json({ error: "Username or email already exists" });
+    }
+
     const hashedPassword = await hashPassword(password);
     const newMember = await Member.create({
       username,

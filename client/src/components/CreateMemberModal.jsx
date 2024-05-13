@@ -27,7 +27,7 @@ function CreateMemberModal({ open, handleClose }) {
   };
   const fetchData = async () => {
     try {
-   const response = await Axios.get("/owner/members", {
+      const response = await Axios.get("/owner/members", {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`, // Assuming the token is stored in localStorage
         },
@@ -50,9 +50,11 @@ function CreateMemberModal({ open, handleClose }) {
       toast.success("Member added successfully!");
       handleClose(); // Close modal on successful submission
       window.location.href = "/dashboard"; // Refresh the page to see the new member
-     
     } catch (error) {
       console.error("Error creating member:", error);
+      toast.error(
+        error.response.data.error || "An error occurred. Please try again. "
+      );
     }
   };
 

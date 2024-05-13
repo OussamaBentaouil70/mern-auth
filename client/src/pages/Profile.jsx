@@ -36,14 +36,14 @@ const Profile = () => {
       <Box sx={{ bgcolor: "rgb(245, 245, 245)", p: 3, minHeight: "100vh" }}>
         <Card sx={{ maxWidth: 400, margin: "auto" }}>
           <CardContent>
-          
             <Typography variant="h5" component="div" gutterBottom>
               User Profile
             </Typography>
             <Avatar
               sx={{
                 bgcolor: getRandomColor(),
-                width: 56, height: 56,
+                width: 56,
+                height: 56,
                 fontSize: 32,
                 margin: "auto",
               }}
