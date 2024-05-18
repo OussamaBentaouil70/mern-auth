@@ -15,13 +15,14 @@ import TestNav from "./pages/TestNav";
 import Rules from "./pages/Rules";
 import PrivateRoute2 from "./components/PrivateRoute2";
 import Profile from "./pages/Profile";
+import ChatBot from "./pages/ChatBot";
 
 axios.defaults.baseURL = "http://localhost:8000";
 axios.defaults.withCredentials = true;
 
 function App() {
   const { user } = useContext(UserContext);
-  
+
   return (
     <UserContextProvider>
       <Navbar />
@@ -41,24 +42,23 @@ function App() {
           element={
             <PrivateRoute>
               <Dashboard />
-              
             </PrivateRoute>
           }
         />
-        <Route
-          path="/profile"
-          element={
-            
-              <Profile />
-              
-          
-          }
-        />
+        <Route path="/profile" element={<Profile />} />
         <Route
           path="/rules"
           element={
             <PrivateRoute2>
               <Rules />
+            </PrivateRoute2>
+          }
+        />
+        <Route
+          path="/chat"
+          element={
+            <PrivateRoute2>
+              <ChatBot />
             </PrivateRoute2>
           }
         />

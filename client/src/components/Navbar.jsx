@@ -20,6 +20,7 @@ const settings = [
   { name: "Profile", type: "link", path: "/profile" },
   { name: "Dashboard", type: "link", path: "/dashboard" },
   { name: "Rules", type: "link", path: "/rules" },
+  { name: "ChatBot", type: "link", path: "/chat" },
   { name: "Logout", type: "button" },
 ];
 
@@ -118,7 +119,8 @@ export default function Navbar() {
                 >
                   {settings.map((setting) =>
                     (setting.name === "Dashboard" && user.role !== "owner") ||
-                    (setting.name === "Rules" &&
+                    (setting.name === "Rules" && user.role !== "member") ||
+                    (setting.name === "ChatBot" &&
                       user.role !== "member") ? null : (
                       <MenuItem
                         key={setting.name}

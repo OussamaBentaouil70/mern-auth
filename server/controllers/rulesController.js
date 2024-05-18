@@ -1,6 +1,5 @@
 const fetch = require("node-fetch");
 const https = require("https");
-const { log } = require("console");
 
 const getRulesByTag = async (req, res) => {
   try {
@@ -52,5 +51,40 @@ const getRulesByTag = async (req, res) => {
     return res.status(500).json({ error: "Internal server error" });
   }
 };
+const generateText = async (req, res) => {
+  try {
+    const { prompt } = req.body;
+    console.log(prompt);
+    const { fonction } = req.user;
+    console.log(fonction);
+    const requestBody = {
+      prompt: prompt,
+      tag: fonction,
+    };
 
-module.exports = { getRulesByTag };
+    const generateUrl = "http://127.0.0.1:8000/api/generate/";
+
+    const response = await fetch(generateUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(requestBody),
+    });
+
+    if (!response.ok) {
+      throw new Error("Failed to generate text");
+    }
+
+    const generatedData = await response.json();
+
+    // Process the generated text data as needed
+
+    res.status(200).json(generatedData); // Return the generated text data to the client
+  } catch (error) {
+    console.error("Error while generating text", error);
+    return res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+module.exports = { getRulesByTag, generateText };

@@ -9,7 +9,6 @@ const {
   listMembersByOwner,
   getMemberById,
 } = require("../controllers/ownerController");
-const { getRulesByTag } = require("../controllers/rulesController");
 
 // Apply the authentication middleware to all owner routes
 router.use(authenticate);
@@ -26,6 +25,5 @@ router.put("/members/:userId", updateMemberByOwner);
 router.delete("/members/:userId", deleteMemberByOwner);
 router.get("/members", listMembersByOwner);
 router.get("/members/:memberId", getMemberById);
-router.get("/rules_by_tag", getRulesByTag);
 
 module.exports = router;

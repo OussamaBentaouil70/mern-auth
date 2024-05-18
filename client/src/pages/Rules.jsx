@@ -18,7 +18,7 @@ export default function Rules() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await Axios.get("/owner/rules_by_tag", {
+        const response = await Axios.get("/rules/rules_by_tag", {
           headers: {
             Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
