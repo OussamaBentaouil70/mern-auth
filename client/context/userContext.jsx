@@ -12,7 +12,7 @@ export function UserContextProvider({ children }) {
   });
 
   useEffect(() => {
-    if (!user) {  
+    if (!user) {
       axios.get("/profile").then(({ data }) => {
         setUser(data);
         localStorage.setItem("user", JSON.stringify(data));
@@ -26,6 +26,7 @@ export function UserContextProvider({ children }) {
       .then(() => {
         localStorage.removeItem("user");
         localStorage.removeItem("token"); // Remove token from local storage
+        localStorage.removeItem("chatMessages"); // Remove chat messages from local storage
         navigate("/login"); // Redirect to the login page
       })
       .catch((error) => console.error("Logout failed", error));

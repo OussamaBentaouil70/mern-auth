@@ -1,25 +1,22 @@
-import React, { useState } from "react";
 import {
-  Box,
-  TextField,
-  Button,
-  List,
-  ListItem,
-  ListItemText,
-  Typography,
-  CircularProgress,
   Avatar,
-  SnackbarContent,
+  Box,
+  Button,
+  CircularProgress,
+  List,
+  ListItemText,
   Paper,
+  TextField,
+  Typography,
 } from "@mui/material";
 import { styled } from "@mui/material/styles"; // Import styled function
 import axios from "axios";
+import React, { useState, useEffect } from "react";
 import icon from "../assets/icon.png";
 
 const user = localStorage.getItem("user")
   ? JSON.parse(localStorage.getItem("user"))
   : null;
-console.log(user);
 
 const ChatContainer = styled(Box)({
   // Create a styled component for ChatContainer
@@ -75,12 +72,24 @@ export default function ChatBot() {
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // Handle the response data in the frontend to display the name and description
+  useEffect(() => {
+    const storedMessages = localStorage.getItem("chatMessages");
+    if (storedMessages) {
+      setMessages(JSON.parse(storedMessages));
+    }
+  }, []);
+
+  // Load chat messages from localStorage
   const handleSend = async () => {
     if (input.trim() === "") return;
 
     const newMessage = { user: "User", text: input };
-    setMessages([...messages, newMessage]);
+    const updatedMessages = [...messages, newMessage];
+    setMessages(updatedMessages);
+
+    // Save all messages to localStorage
+    localStorage.setItem("chatMessages", JSON.stringify(updatedMessages));
+
     setInput("");
     setLoading(true);
 
@@ -100,34 +109,41 @@ export default function ChatBot() {
 
       const data = response.data;
 
-      // Check if the response contains an array of objects or a single object
+      let botResponseText = "";
       if (Array.isArray(data)) {
         const formattedData = data.map(
-          (item) => `NAME: ${item.name}.\nDESCRIPTION: ${item.description}\n`
+          (item) =>
+            `<b>NAME: </b>${item.name}. <br /> <b> DESCRIPTION:</b> ${item.description}<br /><br /> <hr>`
         );
-        const botMessage = {
-          user: "Bot",
-          text: formattedData.reduce((acc, curr) => `${acc}${curr}`, ""),
-        };
-        setMessages((prevMessages) => [...prevMessages, botMessage]);
+        botResponseText = formattedData.join("");
       } else if (typeof data === "object") {
-        const formattedMessage =
-          `NAME: ${data.name}.\nDESCRIPTION: ${data.description}`
-            .split(". ")
-            .join(". \n"); // Split and join for separate lines
-        const botMessage = {
-          user: "Bot",
-          text: formattedMessage,
-        };
-        setMessages((prevMessages) => [...prevMessages, botMessage]);
+        const name = `<b>NAME:</b>  ${data.name}`;
+        const description = `<b>DESCRIPTION: </b> ${data.description}`;
+
+        botResponseText = `${name}<br />${description}<br /><br />`;
       }
+
+      const botMessage = { user: "Bot", text: botResponseText };
+      setMessages([...updatedMessages, botMessage]);
+
+      // Save all updated messages to localStorage
+      localStorage.setItem(
+        "chatMessages",
+        JSON.stringify([...updatedMessages, botMessage])
+      );
     } catch (error) {
       console.error("Error while generating text", error);
       const errorMessage = {
         user: "Bot",
         text: "Error: Unable to get a response.",
       };
-      setMessages((prevMessages) => [...prevMessages, errorMessage]);
+      setMessages([...updatedMessages, errorMessage]);
+
+      // Save error message to localStorage
+      localStorage.setItem(
+        "chatMessages",
+        JSON.stringify([...updatedMessages, errorMessage])
+      );
     }
 
     setLoading(false);
@@ -183,7 +199,10 @@ export default function ChatBot() {
                       message.user === "User" ? "#f0f0f0" : "#e0e0e0",
                   }}
                 >
-                  <Typography variant="body1">{message.text}</Typography>
+                  <Typography
+                    variant="body1"
+                    dangerouslySetInnerHTML={{ __html: message.text }}
+                  ></Typography>
                 </Paper>
               </Box>
             ))}
@@ -202,6 +221,7 @@ export default function ChatBot() {
                     padding: "8px",
                     borderRadius: "12px",
                     backgroundColor: "#f0f0f0",
+                    marginLeft: "8px", // Add margin for spacing between Avatar and Paper
                   }}
                 >
                   <Typography variant="body1">Bot is typing...</Typography>
