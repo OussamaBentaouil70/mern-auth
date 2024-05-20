@@ -1,0 +1,44 @@
+.frame-child2 {
+  height: 61px;
+  flex: 1;
+  min-width: 196px;
+}
+.frame-child3 {
+  align-self: stretch;
+  height: 61px;
+}
+.frame-wrapper5 {
+  width: 186px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 1px 0 0;
+  box-sizing: border-box;
+}
+.frame-parent7,
+.frame-wrapper4 {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  max-width: 100%;
+}
+.frame-parent7 {
+  width: 505px;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 17px;
+}
+.frame-wrapper4 {
+  align-self: stretch;
+  justify-content: center;
+  padding: 0 20px 0 21px;
+  box-sizing: border-box;
+}
+@media screen and (max-width: 450px) {
+  .frame-child2 {
+    padding-left: 20px;
+    padding-right: 20px;
+    box-sizing: border-box;
+  }
+}

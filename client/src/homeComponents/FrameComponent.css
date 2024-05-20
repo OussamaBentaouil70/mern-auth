@@ -1,0 +1,135 @@
+.frequentlly-asked-questions {
+  margin: 0;
+  align-self: stretch;
+  position: relative;
+  font-size: inherit;
+  font-weight: 600;
+  font-family: inherit;
+}
+.we-put-together {
+  margin: 0;
+}
+.questions-dont {
+  margin: 0;
+  white-space: pre-wrap;
+}
+.we-put-together-container {
+  width: 426px;
+  position: relative;
+  font-size: 20px;
+  color: #a09f9f;
+  display: inline-block;
+  max-width: 100%;
+}
+.f-a-q-titles {
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 31px;
+  max-width: 100%;
+}
+.f-a-q-heading-child {
+  width: 229px;
+  height: 61px;
+}
+.f-a-q-content,
+.f-a-q-heading {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  max-width: 100%;
+}
+.f-a-q-heading {
+  align-self: stretch;
+  gap: 44px;
+}
+.f-a-q-content {
+  width: 478px;
+  padding: 28px 0 0;
+  box-sizing: border-box;
+  min-width: 478px;
+}
+.container,
+.group,
+.parent {
+  align-self: stretch;
+  height: 119px;
+  box-shadow: 0 4px 20px transparent;
+  font-family: Poppins;
+  font-size: 20px;
+  color: #000;
+}
+.unchanged-f-a-q {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 23px;
+  min-width: 422px;
+  max-width: 100%;
+}
+.f-a-q-content-parent,
+.frame-wrapper10 {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  max-width: 100%;
+}
+.f-a-q-content-parent {
+  width: 1219px;
+  justify-content: flex-start;
+  gap: 91px;
+}
+.frame-wrapper10 {
+  align-self: stretch;
+  justify-content: center;
+  padding: 0 20px 0 21px;
+  box-sizing: border-box;
+  text-align: left;
+  font-size: 50px;
+  color: #000;
+  font-family: Poppins;
+}
+@media screen and (max-width: 1050px) {
+  .f-a-q-content {
+    flex: 1;
+  }
+  .f-a-q-content-parent {
+    flex-wrap: wrap;
+  }
+}
+@media screen and (max-width: 975px) {
+  .frequentlly-asked-questions {
+    font-size: 40px;
+  }
+}
+@media screen and (max-width: 725px) {
+  .f-a-q-titles {
+    gap: 15px;
+  }
+  .f-a-q-heading {
+    gap: 22px;
+  }
+  .f-a-q-content,
+  .unchanged-f-a-q {
+    min-width: 100%;
+  }
+  .f-a-q-content-parent {
+    gap: 45px;
+  }
+}
+@media screen and (max-width: 450px) {
+  .frequentlly-asked-questions {
+    font-size: 30px;
+  }
+  .we-put-together-container {
+    font-size: 16px;
+  }
+  .f-a-q-content-parent {
+    gap: 23px;
+  }
+}

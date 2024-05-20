@@ -1,0 +1,115 @@
+.frame-child4 {
+  width: 373px;
+  height: 429px;
+  position: relative;
+  border-radius: 10px;
+  background-color: #fff;
+  border: 1px solid #dcdcdc;
+  box-sizing: border-box;
+  display: none;
+  max-width: 100%;
+}
+.business-1-icon {
+  width: 50px;
+  height: 50px;
+  position: relative;
+  object-fit: contain;
+  z-index: 2;
+}
+.feature-4 {
+  position: relative;
+  display: inline-block;
+  min-width: 113px;
+  z-index: 2;
+}
+.feature-4-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 4px;
+}
+.lorem-ipsum-is2 {
+  width: 235px;
+  position: relative;
+  white-space: pre-wrap;
+  display: inline-block;
+  z-index: 2;
+}
+.frame-child5 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  border-radius: 50%;
+  background-color: #fff;
+  border: 0 solid #dcdcdc;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  z-index: 2;
+}
+.right-arrow-4-icon {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  width: 19px;
+  height: 21px;
+  object-fit: contain;
+  z-index: 3;
+}
+.ellipse-container {
+  height: 45px;
+  width: 43px;
+  position: relative;
+}
+.frame-wrapper9 {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-end;
+}
+.lorem-ipsum-is-simply-dummy-te-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 26px;
+}
+.frame-wrapper8,
+.rectangle-parent1 {
+  align-self: stretch;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 0 0 0 4px;
+  font-size: 15px;
+  color: #a09f9f;
+}
+.rectangle-parent1 {
+  border-radius: 10px;
+  background-color: #fff;
+  border: 1px solid #dcdcdc;
+  box-sizing: border-box;
+  flex-direction: column;
+  padding: 43px 25px 15px 53px;
+  gap: 35px;
+  max-width: 100%;
+  z-index: 1;
+  text-align: left;
+  font-size: 25px;
+  color: #000;
+  font-family: Poppins;
+}
+@media screen and (max-width: 450px) {
+  .feature-4 {
+    font-size: 20px;
+  }
+  .rectangle-parent1 {
+    gap: 17px;
+    padding-left: 20px;
+    box-sizing: border-box;
+  }
+}
