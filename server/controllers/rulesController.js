@@ -1,6 +1,6 @@
 const fetch = require("node-fetch");
 const https = require("https");
-
+const Rule = require("../models/rule");
 const getRulesByTag = async (req, res) => {
   try {
     const { fonction } = req.user;
@@ -43,7 +43,29 @@ const getRulesByTag = async (req, res) => {
     // Extract the _source field from the retrieved data
     const sourceArray = data.hits.hits.map((hit) => hit._source);
 
-    // Process the retrieved rules data as needed
+    // Check for existing rules with the same tag before the loop
+    const existingRules = await Rule.find({
+      tag: { $in: sourceArray.map((rule) => rule.tag) },
+    });
+    // Extract the tags from the existing rules
+    const existingTags = existingRules.map((rule) => rule.tag);
+
+    for (const rule of sourceArray) {
+      // Check if the rule's tag is not in the existing tags array
+      if (!existingTags.includes(rule.tag)) {
+        // Save the rule in the main cluster if it doesn't already exist
+        const newRule = new Rule({
+          name: rule.name,
+          description: rule.description,
+          tag: rule.tag,
+        });
+        await newRule.save();
+        console.log(`Rule ${newRule.name} saved in the main cluster`);
+      }
+      console.log(
+        `Rule with tag  ${rule.tag} already exists in the main cluster`
+      );
+    }
 
     res.status(200).json(sourceArray); // Return the fetched rules data to the client
   } catch (error) {
