@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 
+// This middleware function is responsible for authenticating the user by checking the token in the request header or cookies
 const authenticate = (req, res, next) => {
   const token =
     req.cookies.token || req.header("Authorization")?.replace("Bearer ", "");

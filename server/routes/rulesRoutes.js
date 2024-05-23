@@ -17,6 +17,7 @@ router.use(
   })
 );
 
+// Set up routes for rule-specific operations
 router.get("/rules_by_tag", getRulesByTag);
 router.post("/generate", generateText);
 

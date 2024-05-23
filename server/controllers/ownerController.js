@@ -3,6 +3,7 @@ const Owner = require("../models/owner.js");
 const { hashPassword } = require("../helpers/auth.js");
 
 // Create a member by owner
+// this function is responsible for creating a new member by the owner with checking if the owner is authorized to create a new member and hashing the password before saving it in the database
 const createMemberByOwner = async (req, res) => {
   const owner = req.user;
 
@@ -54,6 +55,7 @@ const createMemberByOwner = async (req, res) => {
 };
 
 // Update a member by owner
+// this function is responsible for updating a member by the owner with checking if the owner is authorized to update the member
 const updateMemberByOwner = async (req, res) => {
   const owner = req.user;
   if (owner.role !== "owner") {
@@ -81,6 +83,7 @@ const updateMemberByOwner = async (req, res) => {
 };
 
 // Delete a member by owner
+// this function is responsible for deleting a member by the owner with checking if the owner is authorized to delete the member
 const deleteMemberByOwner = async (req, res) => {
   const owner = req.user;
   if (owner.role !== "owner") {
@@ -99,6 +102,7 @@ const deleteMemberByOwner = async (req, res) => {
 };
 
 // List all members by owner
+// this function is responsible for listing all members by the owner with checking if the owner is authorized to list the members
 const listMembersByOwner = async (req, res) => {
   const owner = req.user;
   if (owner.role !== "owner") {
@@ -115,6 +119,7 @@ const listMembersByOwner = async (req, res) => {
 };
 
 // Get a member by ID
+// this function is responsible for getting a member by ID with checking if the owner is authorized to get the member
 const getMemberById = async (req, res) => {
   const owner = req.user;
   if (owner.role !== "owner") {

@@ -1,6 +1,9 @@
 const fetch = require("node-fetch");
 const https = require("https");
 const Rule = require("../models/rule");
+
+// Get rules by tag controller function
+// this function is responsible for fetching rules from the Elasticsearch cluster based on the user's role and saving them in the main MongoDB cluster
 const getRulesByTag = async (req, res) => {
   try {
     const { fonction } = req.user;
@@ -73,6 +76,9 @@ const getRulesByTag = async (req, res) => {
     return res.status(500).json({ error: "Internal server error" });
   }
 };
+
+// Generate text controller function
+// this function is responsible for generating text based on the user's role and the prompt provided by the user
 const generateText = async (req, res) => {
   try {
     const { prompt } = req.body;
@@ -84,6 +90,8 @@ const generateText = async (req, res) => {
       tag: fonction,
     };
 
+    // Set the URL for the text generation API
+    // This URL should be the URL of the text generation API from mistral API
     const generateUrl = "http://127.0.0.1:8000/api/generate/";
 
     const response = await fetch(generateUrl, {

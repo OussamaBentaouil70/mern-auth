@@ -44,12 +44,12 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: false }));
 
+// Routes
 app.use("/", require("./routes/authRoutes"));
 app.use("/owner", require("./routes/userRoutes"));
 app.use("/rules", require("./routes/rulesRoutes"));
-app.use("/products", require("./routes/productRoutes"));
-app.use("/orders", require("./routes/orderRoutes"));
 
+// Port configuration
 const PORT = process.env.PORT || 8000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

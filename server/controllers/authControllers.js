@@ -4,13 +4,14 @@ const Member = require("../models/member.js");
 const { hashPassword, comparePassword } = require("../helpers/auth.js");
 const jwt = require("jsonwebtoken");
 
-const test = (req, res) => {
-  res.json({ message: "test is working" });
-};
-
+// this function is responsible for choosing between the owner and member models based on the role of the user
 const getUserModel = (role) => {
   return role === "owner" ? Owner : Member;
 };
+
+// Register user controller function
+// this function is responsible for registering a new user in the database with checking if the user already exists or not and hashing the password before saving it in the database
+// it takes the request and response objects as parameters and returns a response object
 const registerUser = async (req, res) => {
   try {
     const { username, email, password, role, fonction } = req.body;
@@ -57,6 +58,8 @@ const registerUser = async (req, res) => {
   }
 };
 
+// Login user controller function
+// this function is responsible for logging in a user by checking the email and password and generating a token for the user
 const loginUser = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -75,7 +78,7 @@ const loginUser = async (req, res) => {
 
     if (!isMatch)
       return res.status(400).json({ error: "Invalid password match" });
-
+    // Generate token
     jwt.sign(
       {
         id: user._id,
@@ -117,6 +120,8 @@ const loginUser = async (req, res) => {
   }
 };
 
+// Test controller function
+// this function is responsible for testing the authentication of the user by checking the token
 const getProfile = (req, res) => {
   const { token } = req.cookies;
   if (token) {
@@ -128,6 +133,9 @@ const getProfile = (req, res) => {
     return res.status(400).json({ error: "User not authenticated" });
   }
 };
+
+// Logout controller function
+// this function is responsible for logging out the user by clearing the token
 const logout = (req, res) => {
   res.clearCookie("token").json({ message: "Logged out" });
 };
