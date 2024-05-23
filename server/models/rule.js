@@ -8,4 +8,4 @@ const ruleSchema = new mongoose.Schema({
 
 const Rule = mongoose.model("Rule", ruleSchema);
 
-module.exports = Rule;
+module.exports = { Rule, ruleSchema };

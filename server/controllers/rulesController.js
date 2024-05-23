@@ -1,7 +1,7 @@
 const fetch = require("node-fetch");
 const https = require("https");
-const Rule = require("../models/rule");
-
+const { Rule, ruleSchema } = require("../models/rule.js");
+const mongoose = require("mongoose");
 // Get rules by tag controller function
 // this function is responsible for fetching rules from the Elasticsearch cluster based on the user's role and saving them in the main MongoDB cluster
 const getRulesByTag = async (req, res) => {
@@ -52,25 +52,38 @@ const getRulesByTag = async (req, res) => {
     });
     // Extract the tags from the existing rules
     const existingTags = existingRules.map((rule) => rule.tag);
-
+    let newRule;
     for (const rule of sourceArray) {
       // Check if the rule's tag is not in the existing tags array
       if (!existingTags.includes(rule.tag)) {
         // Save the rule in the main cluster if it doesn't already exist
-        const newRule = new Rule({
+        newRule = new Rule({
           name: rule.name,
           description: rule.description,
           tag: rule.tag,
         });
         await newRule.save();
-        console.log(`Rule ${newRule.name} saved in the main cluster`);
+
+        // Distribute the rule to a dynamically created collection based on its tag
+        const OtherRuleCollection = mongoose.model(
+          `Rule_${rule.tag.replace(/ /g, "_")}`,
+          ruleSchema
+        );
+        const newRuleInOtherCollection = new OtherRuleCollection({
+          name: rule.name,
+          description: rule.description,
+          tag: rule.tag,
+        });
+        await newRuleInOtherCollection.save();
       }
-      console.log(
-        `Rule with tag  ${rule.tag} already exists in the main cluster`
-      );
     }
 
-    res.status(200).json(sourceArray); // Return the fetched rules data to the client
+    // console.log(
+    //   "Rules saved in the main collection and distributed to other collections based on their tags"
+    // );
+
+    // Return the fetched rules data to the client
+    res.status(200).json(sourceArray);
   } catch (error) {
     console.error("Error while fetching rules by tag", error);
     return res.status(500).json({ error: "Internal server error" });
@@ -117,4 +130,24 @@ const generateText = async (req, res) => {
   }
 };
 
-module.exports = { getRulesByTag, generateText };
+// Delete rules controller function by there tag
+const deleteRules = async (req, res) => {
+  try {
+    const { tag } = req.body;
+    const result = await Rule.deleteMany({ tag });
+    if (result.deletedCount > 0) {
+      res.status(200).json({
+        message: `${result.deletedCount} records deleted successfully.`,
+      });
+    } else {
+      res
+        .status(404)
+        .json({ message: "No records found with the specified name." });
+    }
+  } catch (error) {
+    console.error("Error deleting all rules", error);
+    return res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+module.exports = { getRulesByTag, generateText, deleteRules };

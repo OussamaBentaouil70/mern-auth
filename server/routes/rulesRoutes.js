@@ -6,6 +6,7 @@ const cors = require("cors");
 const {
   getRulesByTag,
   generateText,
+  deleteRules,
 } = require("../controllers/rulesController");
 
 router.use(authenticate);
@@ -20,5 +21,6 @@ router.use(
 // Set up routes for rule-specific operations
 router.get("/rules_by_tag", getRulesByTag);
 router.post("/generate", generateText);
+router.delete("/delete_rules", deleteRules);
 
 module.exports = router;
