@@ -16,6 +16,7 @@ import Rules from "./pages/Rules";
 import PrivateRoute2 from "./components/PrivateRoute2";
 import Profile from "./pages/Profile";
 import ChatBot from "./pages/ChatBot";
+import PrivateRoute3 from "./components/PrivateRoute3";
 
 axios.defaults.baseURL = "http://localhost:8000";
 axios.defaults.withCredentials = true;
@@ -45,7 +46,14 @@ function App() {
             </PrivateRoute>
           }
         />
-        <Route path="/profile" element={<Profile />} />
+        <Route
+          path="/profile"
+          element={
+            <PrivateRoute3>
+              <Profile />
+            </PrivateRoute3>
+          }
+        />
         <Route
           path="/rules"
           element={

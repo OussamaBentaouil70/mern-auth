@@ -5,30 +5,6 @@ const cookieParser = require("cookie-parser");
 
 const app = express();
 
-// Connect to all MongoDB clusters
-const cluster1Connection = mongoose.createConnection(
-  process.env.MONGO_URL_CLUSTER1
-);
-const cluster2Connection = mongoose.createConnection(
-  process.env.MONGO_URL_CLUSTER2
-);
-const cluster3Connection = mongoose.createConnection(
-  process.env.MONGO_URL_CLUSTER3
-);
-
-// Check connection status for each cluster
-cluster1Connection.on("connected", () => {
-  console.log("Connected to Cluster 1");
-});
-
-cluster2Connection.on("connected", () => {
-  console.log("Connected to Cluster 2");
-});
-
-cluster3Connection.on("connected", () => {
-  console.log("Connected to Cluster 3");
-});
-
 // Connect to MongoDB
 mongoose
   .connect(process.env.MONGO_URL)
